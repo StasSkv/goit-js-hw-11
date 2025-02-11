@@ -115,6 +115,7 @@ img {
 .gallery-img {
   height: 152px;
   background-color: #fff;
+  overflow: hidden;
 }
 
 .info-list {

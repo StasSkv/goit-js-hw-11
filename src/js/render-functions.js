@@ -1,18 +1,8 @@
-// const properties = {
-//   webformatURL,
-//   largeImageURL,
-//   tags,
-//   likes,
-//   views,
-//   comments,
-//   downloads,
-// };
-
 export function renderImages(images) {
   const newList = images
     .map(image => {
       return `<li class="gallery-item">
-        <img src="${image.webformatURL}" alt="${image.tags}" class="gallery-img" data-source="${image.largeImageURL}" width="360" height="152"/>
+       <a href="${image.largeImageURL}" class="gallery-link"> <img src="${image.webformatURL}" alt="${image.tags}" class="gallery-img" width="360" height="152"/></a>
         <ul class="info-list">
           <li class="info-item">
             <h4 class="info-title">Likes</h4>
@@ -35,5 +25,6 @@ export function renderImages(images) {
     })
     .join('');
   const list = document.querySelector('.gallery-list');
-  list.insertAdjacentHTML('beforeend', newList);
+  list.innerHTML = newList;
+//   lightbox.refresh();
 }

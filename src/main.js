@@ -1,5 +1,8 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
+
 import { sendRequest } from './js/pixabay-api';
 import { renderImages } from './js/render-functions';
 
@@ -13,14 +16,20 @@ input.addEventListener('blur', () => (input.style.borderColor = ''));
 
 function submitForm(event) {
   event.preventDefault();
-  if (!input.value.trim()) {
+  const query = input.value.trim();
+  if (!query) {
     showMessage('Please enter the text');
     form.reset();
   } else {
     form.reset();
-    sendRequest(input.value)
+    list.innerHTML = '';
+    sendRequest(query)
       .then(images => renderImages(images))
-      .catch(() => showMessage('Sorry, an error occurred while loading'));
+      .catch(() =>
+        showMessage(
+          'Sorry, there are no images matching your search query. Please try again!'
+        )
+      );
   }
 }
 
@@ -37,5 +46,12 @@ function showMessage(message) {
     displayMode: 2,
     transitionIn: 'bounceInLeft',
     transitionOut: 'fadeOutLeft',
+    maxWidth: "400px" ,
   });
 }
+
+const lightBox = new SimpleLightbox('.gallery-list a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+  scrollZoom: false,
+});
