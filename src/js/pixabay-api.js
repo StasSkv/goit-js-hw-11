@@ -1,8 +1,10 @@
 import axios from 'axios';
-
 axios.defaults.baseURL = 'https://pixabay.com/api/';
 
+const loader = document.querySelector('.loader');
+
 export function sendRequest(q) {
+  loader.style.display = 'block';
   return axios
     .get('', {
       params: {
@@ -25,5 +27,8 @@ export function sendRequest(q) {
     .catch(error => {
       showMessage('Sorry, an error occurred while loading');
       return [];
+    })
+    .finally(() => {
+      loader.style.display = 'none';
     });
 }

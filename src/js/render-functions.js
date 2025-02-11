@@ -1,4 +1,4 @@
-export function renderImages(images) {
+export function renderImages(images, lightbox) {
   const newList = images
     .map(image => {
       return `<li class="gallery-item">
@@ -25,6 +25,7 @@ export function renderImages(images) {
     })
     .join('');
   const list = document.querySelector('.gallery-list');
-  list.innerHTML = newList;
-//   lightbox.refresh();
+  list.innerHTML = '';
+  list.insertAdjacentHTML('beforeend', newList);
+  lightbox.refresh();
 }
